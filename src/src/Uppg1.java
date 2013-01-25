@@ -1,6 +1,14 @@
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
-public class Uppg1b {
+/**
+ * A class to handle elements in a list.  
+ * 
+ * @author Andreas Rolen, Robin Hammarang  (Group XX)
+ * 
+ */
+//TODO Javadoc this better!
+public class Uppg1 {
 
 	private String[] stringArr;
 	private int pos;
@@ -11,7 +19,7 @@ public class Uppg1b {
 	 * @param size
 	 *            The size of the list.
 	 */
-	public Uppg1b(int size) {
+	public Uppg1(int size) {
 		stringArr = new String[size];
 		pos = 0;
 	}
@@ -20,7 +28,7 @@ public class Uppg1b {
 	 * Creates a list of element with a size of 10 and set P to the first
 	 * position.
 	 */
-	public Uppg1b() {
+	public Uppg1() {
 		stringArr = new String[10];
 		pos = 0;
 	}
@@ -30,7 +38,7 @@ public class Uppg1b {
 	 * if the list is full.
 	 * 
 	 * @param elem
-	 *            The added string.
+	 *            The element that will be added.
 	 */
 	public void addFirst(String elem) {
 		if (empty()) {
@@ -54,7 +62,7 @@ public class Uppg1b {
 	/**
 	 * Checks if the list is empty.
 	 * 
-	 * @return True if empty, False if the list contains an element.
+	 * @return True if empty, False if the list contains one element or more.
 	 */
 	public boolean empty() {
 		for (int i = 0; i < stringArr.length; i++) {
@@ -70,21 +78,28 @@ public class Uppg1b {
 	 * 
 	 * @return The first element.
 	 */
-	public String getFirst() {
-		if (empty()) {
-			System.out.println("The list is empty, no element to return");
+	public String getFirst() throws NoSuchElementException {
+		if (empty()) {														// Should this method return the element at the
+			System.out.println("The list is empty, no element to return");	// first position in the list, or the first
+			throw new NoSuchElementException();								// element in the list that exists?
+		}																	// Does alternative two at the moment.
+		int i;
+		for (i = 0; i < stringArr.length; i++) {
+			if (stringArr[i] != null) {
+				break;
+			}
 		}
-		return stringArr[0];
+		return stringArr[i];
 	}
 
 	/**
 	 * Removes the first element in the list, if it exists.
 	 */
-	public void removeFirst() {
-		if (!empty()) {
-			for (int i = 0; i < stringArr.length - 1; i++) {
-				stringArr[i] = stringArr[i + 1];
-			}
+	public void removeFirst() { 
+		if (!empty()) {														// Should this method remove the element at the
+			for (int i = 0; i < stringArr.length - 1; i++) {				// first position in the list, or the first
+				stringArr[i] = stringArr[i + 1];							// element in the list that exists?
+			}																// Does alternative one at the moment.
 			String tmpArr[] = Arrays.copyOf(stringArr, stringArr.length - 1);
 			stringArr = tmpArr;
 			if (pos != 0) {
@@ -94,7 +109,7 @@ public class Uppg1b {
 	}
 
 	/**
-	 * Help method that checks if a given element exists and return it's index.
+	 * Helpmethod that checks if a given element exists and return it's index.
 	 * 
 	 * @param elem
 	 *            The element that will be searched for.
@@ -169,9 +184,7 @@ public class Uppg1b {
 				return true;
 			}
 		} catch (IndexOutOfBoundsException e) {
-			System.out.println("P:s position is not inside the list"); // Should
-																		// not
-																		// occur
+			System.out.println("P:s position is not inside the list"); // Should not occur
 		}
 		return false;
 	}
@@ -202,6 +215,8 @@ public class Uppg1b {
 		setP(p);
 		if (hasNext()) {
 			return stringArr[pos];
+		} else {
+			System.out.println("No element to return");
 		}
 		return null;
 	}
