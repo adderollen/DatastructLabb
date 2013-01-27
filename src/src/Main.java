@@ -2,7 +2,9 @@
 public class Main {
 
 	public static void main(String[] args) {
-		Uppg1a a = new Uppg1a();
+		System.out.println("" + Uppg2.binarySqrt(6.25, Math.pow(10, -6)));
+		
+		/*Uppg1a a = new Uppg1a();
 		
 		System.out.println(a.empty());
 		System.out.println(a.toString());
@@ -17,7 +19,7 @@ public class Main {
 		a.removeFirst();
 		
 		System.out.println(a.toString());
-		System.out.println(a.existP("12"));
+		System.out.println(a.existP("12"));*/
 	}
 	
 }
