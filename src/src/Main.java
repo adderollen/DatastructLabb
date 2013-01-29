@@ -2,12 +2,12 @@
 public class Main {
 
 	public static void main(String[] args) {
-		double sqr = 10000;
+		/*double sqr = 10000;
 		double eps = Math.pow(10, -6);
 		System.out.println("Math.sqrt = " + Math.sqrt(sqr));
-		System.out.println("Binarysqrt = " + Uppg2.binarySqrt(sqr, eps));
+		System.out.println("Binarysqrt = " + Uppg2.binarySqrt(sqr, eps));*/
 		
-		/*Uppg1a a = new Uppg1a();
+		Uppg1 a = new Uppg1();
 		
 		System.out.println(a.empty());
 		System.out.println(a.toString());
@@ -22,7 +22,7 @@ public class Main {
 		a.removeFirst();
 		
 		System.out.println(a.toString());
-		System.out.println(a.existP("12"));*/
+		System.out.println(a.existP("12"));
 	}
 	
 }

@@ -19,12 +19,12 @@ public class Uppg1 {
 	/**
 	 * Creates a list of element and set P to the first position.
 	 * 
-	 * @param size
+	 * @param capacity
 	 *            The size of the list.
 	 */
-	public Uppg1(int size) {
-		stringArr = new String[size];
-		this.capacity = size;
+	public Uppg1(int capacity) {
+		stringArr = new String[capacity];
+		this.capacity = capacity;
 		pos = 0;
 	}
 
@@ -55,8 +55,9 @@ public class Uppg1 {
 				tmpArr[i+1] = stringArr[i];
 			}
 			stringArr = tmpArr;
-			size++;
+			
 		}
+		size++;
 	}
 	
 	private void reallocate() {
@@ -82,10 +83,7 @@ public class Uppg1 {
 	 * 
 	 * @return The first element.
 	 */
-	public String getFirst() throws NoSuchElementException {
-		if (empty()) {														
-			return null;
-		}																	
+	public String getFirst() throws NoSuchElementException {																	
 		return stringArr[0];
 	}
 
@@ -193,6 +191,7 @@ public class Uppg1 {
 		for(int i = index; i < size; i++) {
 			tmpArr[i+1] = stringArr[i];
 		}
+		size++;
 	}
 
 	/**
