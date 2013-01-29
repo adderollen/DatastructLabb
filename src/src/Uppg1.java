@@ -12,6 +12,9 @@ public class Uppg1 {
 
 	private String[] stringArr;
 	private int pos;
+	private int size;
+	private int capacity;
+	private static final int INITIAL_CAPACITY = 10;
 
 	/**
 	 * Creates a list of element and set P to the first position.
@@ -21,6 +24,7 @@ public class Uppg1 {
 	 */
 	public Uppg1(int size) {
 		stringArr = new String[size];
+		this.capacity = size;
 		pos = 0;
 	}
 
@@ -29,13 +33,11 @@ public class Uppg1 {
 	 * position.
 	 */
 	public Uppg1() {
-		stringArr = new String[10];
-		pos = 0;
+		this(INITIAL_CAPACITY);
 	}
 
 	/**
-	 * Adds an element in the first position. Also increase the size of the list
-	 * if the list is full.
+	 * Adds an element in the first position.
 	 * 
 	 * @param elem
 	 *            The element that will be added.
@@ -44,19 +46,26 @@ public class Uppg1 {
 		if (empty()) {
 			stringArr[0] = elem;
 		} else {
-			String tmpArr[];
-			if (stringArr[stringArr.length - 1] == null) {
-				tmpArr = Arrays.copyOf(stringArr, stringArr.length);
-			} else {
-				tmpArr = Arrays.copyOf(stringArr, stringArr.length + 1);
-				pos++;
+			if(size == capacity) {
+				reallocate();
 			}
-			for (int i = tmpArr.length - 1; i > 0; i--) {
-				tmpArr[i] = tmpArr[i - 1];
+			String tmpArr[] = new String[capacity];
+			tmpArr[0] = elem;
+			for(int i = 0; i < size; i++) {
+				tmpArr[i+1] = stringArr[i];
 			}
 			stringArr = tmpArr;
-			stringArr[0] = elem;
+			size++;
 		}
+	}
+	
+	private void reallocate() {
+		capacity = 2 * capacity;
+		String[] tmpArr = new String[capacity];
+		for(int i = 0; i < size; i++) {
+			tmpArr[i] = stringArr[i];
+		}
+		stringArr = tmpArr;
 	}
 
 	/**
@@ -65,12 +74,7 @@ public class Uppg1 {
 	 * @return True if empty, False if the list contains one element or more.
 	 */
 	public boolean empty() {
-		for (int i = 0; i < stringArr.length; i++) {
-			if (stringArr[i] != null) {
-				return false;
-			}
-		}
-		return true;
+		return (size == 0);
 	}
 
 	/**
@@ -79,32 +83,21 @@ public class Uppg1 {
 	 * @return The first element.
 	 */
 	public String getFirst() throws NoSuchElementException {
-		if (empty()) {														// Should this method return the element at the
-			System.out.println("The list is empty, no element to return");	// first position in the list, or the first
-			throw new NoSuchElementException();								// element in the list that exists?
-		}																	// Does alternative two at the moment.
-		int i;
-		for (i = 0; i < stringArr.length; i++) {
-			if (stringArr[i] != null) {
-				break;
-			}
-		}
-		return stringArr[i];
+		if (empty()) {														
+			return null;
+		}																	
+		return stringArr[0];
 	}
 
 	/**
 	 * Removes the first element in the list, if it exists.
 	 */
 	public void removeFirst() { 
-		if (!empty()) {														// Should this method remove the element at the
-			for (int i = 0; i < stringArr.length - 1; i++) {				// first position in the list, or the first
-				stringArr[i] = stringArr[i + 1];							// element in the list that exists?
-			}																// Does alternative one at the moment.
-			String tmpArr[] = Arrays.copyOf(stringArr, stringArr.length - 1);
-			stringArr = tmpArr;
-			if (pos != 0) {
-				pos--;
+		if (!empty()) {														
+			for (int i = 0; i < stringArr.length - 1; i++) {				
+				stringArr[i] = stringArr[i + 1];							
 			}
+			size--;
 		}
 	}
 
@@ -118,7 +111,7 @@ public class Uppg1 {
 	 */
 	private int exist(String elem) {
 		if (!empty()) {
-			for (int i = 0; i < stringArr.length; i++) {
+			for (int i = 0; i < size; i++) {
 				if (stringArr[i].equals(elem)) {
 					return i;
 				}
@@ -166,10 +159,10 @@ public class Uppg1 {
 	 *            The index that P will be set to.
 	 */
 	public void setP(int p) {
-		if (p < stringArr.length && p >= 0) {
+		if (p <= size) {
 			pos = p;
 		} else {
-			System.out.println("The value is not valid!");
+			throw new IndexOutOfBoundsException("Not a valid position");
 		}
 	}
 
@@ -179,14 +172,7 @@ public class Uppg1 {
 	 * @return If there is an element at P:s position.
 	 */
 	public boolean hasNext() {
-		try {
-			if (stringArr[pos] != null) {
-				return true;
-			}
-		} catch (IndexOutOfBoundsException e) {
-			System.out.println("P:s position is not inside the list"); // Should not occur
-		}
-		return false;
+		return (pos <= size);
 	}
 
 	/**
@@ -199,8 +185,13 @@ public class Uppg1 {
 	 */
 	public void addAfterP(int index, String elem) {
 		setP(index);
-		if (hasNext()) {
-			stringArr[pos] = elem;
+		if(size == capacity) {
+			reallocate();
+		}
+		String[] tmpArr = new String[capacity];
+		tmpArr[index] = elem;
+		for(int i = index; i < size; i++) {
+			tmpArr[i+1] = stringArr[i];
 		}
 	}
 
@@ -213,12 +204,7 @@ public class Uppg1 {
 	 */
 	public String getP(int p) {
 		setP(p);
-		if (hasNext()) {
-			return stringArr[pos];
-		} else {
-			System.out.println("No element to return");
-		}
-		return null;
+		return stringArr[p];
 	}
 
 	/**
@@ -238,7 +224,7 @@ public class Uppg1 {
 	public String toString() {
 		StringBuilder sBuild = new StringBuilder();
 
-		for (int i = 0; i < stringArr.length; i++) {
+		for (int i = 0; i < size; i++) {
 			sBuild.append(", " + stringArr[i]);
 		}
 
