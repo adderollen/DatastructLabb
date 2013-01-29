@@ -1,0 +1,1 @@
+maxSubSum summerar alla delsummor av ett fält och jämför vilken som är störst och berättar start och slutelement. 

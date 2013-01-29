@@ -2,7 +2,10 @@
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("" + Uppg2.binarySqrt(6.25, Math.pow(10, -6)));
+		double sqr = 10000;
+		double eps = Math.pow(10, -6);
+		System.out.println("Math.sqrt = " + Math.sqrt(sqr));
+		System.out.println("Binarysqrt = " + Uppg2.binarySqrt(sqr, eps));
 		
 		/*Uppg1a a = new Uppg1a();
 		
