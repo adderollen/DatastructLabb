@@ -1,13 +1,10 @@
-import java.util.Arrays;
-import java.util.NoSuchElementException;
-
 /**
- * A class to handle elements in a list.  
+ * A class to handle elements in a list.
  * 
- * @author Andreas Rolen, Robin Hammarang  (Group XX)
+ * @author Andreas Rolen, Robin Hammarang (Group 35)
  * 
  */
-//TODO Javadoc this better!
+// TODO Javadoc this better!
 public class Uppg1 {
 
 	private String[] stringArr;
@@ -46,24 +43,24 @@ public class Uppg1 {
 		if (empty()) {
 			stringArr[0] = elem;
 		} else {
-			if(size == capacity) {
+			if (size == capacity) {
 				reallocate();
 			}
 			String tmpArr[] = new String[capacity];
 			tmpArr[0] = elem;
-			for(int i = 0; i < size; i++) {
-				tmpArr[i+1] = stringArr[i];
+			for (int i = 0; i < size; i++) {
+				tmpArr[i + 1] = stringArr[i];
 			}
 			stringArr = tmpArr;
-			
+
 		}
 		size++;
 	}
-	
+
 	private void reallocate() {
 		capacity = 2 * capacity;
 		String[] tmpArr = new String[capacity];
-		for(int i = 0; i < size; i++) {
+		for (int i = 0; i < size; i++) {
 			tmpArr[i] = stringArr[i];
 		}
 		stringArr = tmpArr;
@@ -79,21 +76,21 @@ public class Uppg1 {
 	}
 
 	/**
-	 * Gets the first element in the list, if it exists.
+	 * Gets the first element in the list.
 	 * 
 	 * @return The first element.
 	 */
-	public String getFirst() throws NoSuchElementException {																	
+	public String getFirst() {
 		return stringArr[0];
 	}
 
 	/**
 	 * Removes the first element in the list, if it exists.
 	 */
-	public void removeFirst() { 
-		if (!empty()) {														
-			for (int i = 0; i < stringArr.length - 1; i++) {				
-				stringArr[i] = stringArr[i + 1];							
+	public void removeFirst() {
+		if (!empty()) {
+			for (int i = 0; i < stringArr.length - 1; i++) {
+				stringArr[i] = stringArr[i + 1];
 			}
 			size--;
 		}
@@ -183,13 +180,13 @@ public class Uppg1 {
 	 */
 	public void addAfterP(int index, String elem) {
 		setP(index);
-		if(size == capacity) {
+		if (size == capacity) {
 			reallocate();
 		}
 		String[] tmpArr = new String[capacity];
 		tmpArr[index] = elem;
-		for(int i = index; i < size; i++) {
-			tmpArr[i+1] = stringArr[i];
+		for (int i = index; i < size; i++) {
+			tmpArr[i + 1] = stringArr[i];
 		}
 		size++;
 	}
