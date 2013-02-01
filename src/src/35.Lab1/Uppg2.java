@@ -10,7 +10,9 @@ public class Uppg2 {
 	/**
 	 * binarySqrt returns the square root of the given sqr with precision eps.
 	 * @param sqr >= 1
+	 * @throws NumberFormatException if sqr < 1
 	 * @param eps > 0
+	 * @throws NumberFormatException if eps < 0
 	 * @return Root
 	 */
 	public static double binarySqrt(double sqr, double eps) {
