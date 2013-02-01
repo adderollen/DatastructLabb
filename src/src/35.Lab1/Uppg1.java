@@ -1,10 +1,10 @@
-import java.util.NoSuchElementException;
-
 /**
- * A class to handle elements in a list.  
- * @author Robin Hammaräng
- * @author Andreas Rolén
+ * A class to handle elements in a list.
+ * 
+ * @author Andreas Rolen
+ * @autor Robin Hammarang
  * @group 35
+ * 
  */
 
 public class Uppg1 {
@@ -45,24 +45,28 @@ public class Uppg1 {
 		if (empty()) {
 			stringArr[0] = elem;
 		} else {
-			if(size == capacity) {
+			if (size == capacity) {
 				reallocate();
 			}
 			String tmpArr[] = new String[capacity];
 			tmpArr[0] = elem;
-			for(int i = 0; i < size; i++) {
-				tmpArr[i+1] = stringArr[i];
+			for (int i = 0; i < size; i++) {
+				tmpArr[i + 1] = stringArr[i];
 			}
 			stringArr = tmpArr;
-			
+
 		}
 		size++;
 	}
-	
+
+	/**
+	 * Doubles the capacity of the list.
+	 * 
+	 */
 	private void reallocate() {
 		capacity = 2 * capacity;
 		String[] tmpArr = new String[capacity];
-		for(int i = 0; i < size; i++) {
+		for (int i = 0; i < size; i++) {
 			tmpArr[i] = stringArr[i];
 		}
 		stringArr = tmpArr;
@@ -78,21 +82,22 @@ public class Uppg1 {
 	}
 
 	/**
-	 * Gets the first element in the list, if it exists.
+	 * Gets the element at the first position in the list. Returns null if the
+	 * list is empty or if null has been added to the first position.
 	 * 
 	 * @return The first element.
 	 */
-	public String getFirst() throws NoSuchElementException {																	
+	public String getFirst() {
 		return stringArr[0];
 	}
 
 	/**
-	 * Removes the first element in the list, if it exists.
+	 * Removes the element at the first position in the list.
 	 */
-	public void removeFirst() { 
-		if (!empty()) {														
-			for (int i = 0; i < stringArr.length - 1; i++) {				
-				stringArr[i] = stringArr[i + 1];							
+	public void removeFirst() {
+		if (!empty()) {
+			for (int i = 0; i < size; i++) {
+				stringArr[i] = stringArr[i + 1];
 			}
 			size--;
 		}
@@ -154,6 +159,7 @@ public class Uppg1 {
 	 * 
 	 * @param p
 	 *            The index that P will be set to.
+	 * @throws IndexOutOfBoundsException if p has a invalid value.
 	 */
 	public void setP(int p) {
 		if (p <= size) {
@@ -164,7 +170,7 @@ public class Uppg1 {
 	}
 
 	/**
-	 * Checks if there is an element at P:s position.
+	 * Checks if there is an added element at P:s position.
 	 * 
 	 * @return If there is an element at P:s position.
 	 */
@@ -182,13 +188,13 @@ public class Uppg1 {
 	 */
 	public void addAfterP(int index, String elem) {
 		setP(index);
-		if(size == capacity) {
+		if (size == capacity) {
 			reallocate();
 		}
 		String[] tmpArr = new String[capacity];
 		tmpArr[index] = elem;
-		for(int i = index; i < size; i++) {
-			tmpArr[i+1] = stringArr[i];
+		for (int i = index; i < size; i++) {
+			tmpArr[i + 1] = stringArr[i];
 		}
 		size++;
 	}
